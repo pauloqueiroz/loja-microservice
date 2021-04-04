@@ -1,5 +1,6 @@
 package br.com.alura.microservice.loja.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,11 @@ import br.com.alura.microservice.loja.form.CompraForm;
 @Service
 public class CompraService {
 
+	@Autowired
+	private RestTemplate rest;
+
 	public void realizaCompra(CompraForm compra) {
-		RestTemplate rest = new RestTemplate();
-		ResponseEntity<InfoFornecedorDto> exchange = rest.exchange("http://localhost:8081/info/"+compra.getEndereco().getEstado(), HttpMethod.GET, null, InfoFornecedorDto.class);
+		ResponseEntity<InfoFornecedorDto> exchange = rest.exchange("http://fornecedor/info/"+compra.getEndereco().getEstado(), HttpMethod.GET, null, InfoFornecedorDto.class);
 		System.out.println(exchange.getBody().getEndereco());
 	}
 

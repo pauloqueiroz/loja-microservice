@@ -1,5 +1,6 @@
 package br.com.alura.microservice.loja.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,9 +12,12 @@ import br.com.alura.microservice.loja.form.CompraForm;
 @RequestMapping("/compra")
 public class CompraController {
 
-	
+	@Autowired
+	private CompraService service;
+
 	@RequestMapping(method = RequestMethod.POST)
 	public void realizaCompra(@RequestBody CompraForm compra) {
+		service.realizaCompra(compra);
 		System.out.println(compra);
 	}
 }
